@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Byte-compiled / logs / runtime
+*.log
+*.sqlite3
+*.db
+
+# PyTorch / model checkpoints
+*.pt
+*.pth
+*.ckpt
+
+# MuJoCo / simulation caches
+mujoco_cache/
+.mujoco/
+
+# Project outputs and checkpoints
+logs/
+runs/
+tensorboard/
+
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Testing
+.coverage
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Temporary files
+*.tmp
+*.bak
+
+# Ignore large archives
+*.tar.gz
+
+# Keep model XMLs and source under version control (do not ignore models/ by default)
