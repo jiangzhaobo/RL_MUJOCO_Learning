@@ -1,4 +1,4 @@
-"""配置文件 - 基于 Franka FR3 的 SAC 训练配置"""
+"""配置文件 - 基于 Franka FR3 的 DDPG 训练配置"""
 
 import os
 
@@ -8,20 +8,20 @@ MODEL_PATH = os.path.join(BASE_DIR, "models", "fr3_reach.xml")
 LOG_DIR = os.path.join(BASE_DIR, "logs")
 SAVE_DIR = os.path.join(BASE_DIR, "saved_models")
 
-# 训练配置（SAC 为离线/离策略算法，通常使用较大的重放池）
+# 训练配置（DDPG 为 off-policy actor-critic）
 TRAIN_CONFIG = {
-    "total_timesteps": 1500000,
-    "n_envs": 15,
-    "learning_rate": 3e-4,
-    "buffer_size": 1000000,
+    "total_timesteps": 1000000,
+    "n_envs": 14,
+    "learning_rate": 1e-3,
+    "buffer_size": 500000,
     "batch_size": 256,
     "train_freq": 1,
     "gradient_steps": 1,
     "tau": 0.005,
     "gamma": 0.99,
-    "ent_coef": "auto",
-    "target_update_interval": 1,
     "max_grad_norm": 0.5,
+    # 噪声参数（用于探索）
+    "action_noise_std": 0.1,
 }
 
 # 环境配置

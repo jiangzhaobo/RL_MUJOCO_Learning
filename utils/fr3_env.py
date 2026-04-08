@@ -23,7 +23,7 @@ class FR3ReachEnv(gym.Env):
 
         # 每个RL step执行的物理仿真子步数
         # timestep=0.002s，n_substeps=5 → 控制频率100Hz，物理频率500Hz
-        self.n_substeps = n_substeps
+        self.n_substeps = n_substeps if n_substeps is not None else 5
 
         # FR3 Home位置（7个关节，来自fr3.xml的keyframe）
         self.home_qpos = np.array([0.0, 0.0, 0.0, -1.57079, 0.0, 1.57079, -0.7853])
@@ -60,12 +60,12 @@ class FR3ReachEnv(gym.Env):
         assert self.target_body_id != -1, "找不到 target body，请检查fr3_reach.xml"
 
         # 成功判定与稳定性相关阈值
-        self.success_threshold = 0.05  # m
+        self.success_threshold = 0.04  # m
         self.success_consecutive = 2  # 连续满足阈值的步数
         self.ee_vel_threshold = 0.01  # m/s，末端速度阈值
 
     def _get_target_pos(self):
-        """从仿真数据中读取目标位置"""
+        """从仿真数据中读取目标位置（修复3：不依赖Python变量）"""
         return self.data.xpos[self.target_body_id].copy()
 
     def _get_obs(self):
@@ -152,9 +152,13 @@ class FR3ReachEnv(gym.Env):
         # - 成功奖励：到达阈值给大额奖励并终止
 
         progress = self.prev_distance - distance
-        action_penalty = 0.05 * np.linalg.norm(action)
+        action_penalty = 0.01 * np.linalg.norm(action)
         reward = (
-            -distance + 0.5 * np.exp(-10.0 * distance) + 1.0 * progress - action_penalty
+            -distance
+            + 0.5 * np.exp(-10.0 * distance)
+            + 1.2 * progress
+            - action_penalty
+            - 0.001 * self.current_step
         )
 
         # 稳定性判定：距离与速度都满足时计数，否则清零
@@ -165,7 +169,7 @@ class FR3ReachEnv(gym.Env):
 
         # 当连续满足稳定条件到达设置步数时视为成功
         if self.stable_count >= self.success_consecutive:
-            reward += 15.0
+            reward += 20.0
             terminated = True
         else:
             terminated = False

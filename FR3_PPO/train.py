@@ -1,12 +1,16 @@
 """训练脚本"""
 
 import os
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
 import argparse
 from stable_baselines3 import PPO
 from stable_baselines3.common.callbacks import CheckpointCallback
 from stable_baselines3.common.vec_env import SubprocVecEnv
 from stable_baselines3.common.monitor import Monitor
-from fr3_env import FR3ReachEnv
+from utils.fr3_env import FR3ReachEnv
 from config import TRAIN_CONFIG, ENV_CONFIG, LOG_DIR, SAVE_DIR
 
 

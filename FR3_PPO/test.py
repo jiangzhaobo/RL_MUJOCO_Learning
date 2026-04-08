@@ -1,11 +1,15 @@
 """测试脚本"""
 
 import os
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
 import argparse
 import numpy as np
 import time
 from stable_baselines3 import PPO
-from fr3_env import FR3ReachEnv
+from utils.fr3_env import FR3ReachEnv
 from config import TEST_CONFIG, SAVE_DIR
 import mujoco.viewer
 

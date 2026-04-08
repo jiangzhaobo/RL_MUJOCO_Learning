@@ -7,7 +7,7 @@ import os
 
 
 class FR3ReachEnv(gym.Env):
-    """Franka FR3 到达目标的环境（与 FR3_SAC 中一致）"""
+    """Franka FR3 到达目标的环境"""
 
     metadata = {"render_modes": ["human", "rgb_array"], "render_fps": 50}
 

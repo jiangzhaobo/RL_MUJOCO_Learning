@@ -1,12 +1,16 @@
 """A2C 测试脚本：使用 stable_baselines3.A2C 加载并评估模型"""
 
 import os
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
 import argparse
 import time
 import numpy as np
 from stable_baselines3 import A2C
 
-from fr3_env import FR3ReachEnv
+from utils.fr3_env import FR3ReachEnv
 from config import TEST_CONFIG, SAVE_DIR
 
 

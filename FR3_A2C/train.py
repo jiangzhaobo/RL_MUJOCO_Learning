@@ -1,13 +1,17 @@
 """A2C 训练脚本（基于 stable_baselines3）"""
 
 import os
+import sys
+from pathlib import Path
+
+sys.path.append(str(Path(__file__).parent.parent))
 import argparse
 from stable_baselines3 import A2C
 from stable_baselines3.common.vec_env import SubprocVecEnv, DummyVecEnv
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.callbacks import CheckpointCallback
 
-from fr3_env import FR3ReachEnv
+from utils.fr3_env import FR3ReachEnv
 from config import TRAIN_CONFIG, ENV_CONFIG, LOG_DIR, SAVE_DIR
 
 

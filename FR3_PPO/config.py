@@ -10,8 +10,8 @@ SAVE_DIR = os.path.join(BASE_DIR, "saved_models")
 
 # 训练配置
 TRAIN_CONFIG = {
-    "total_timesteps": 1500000,  # 从500k增加到2M，机械臂任务至少需要1M+
-    "n_envs": 10,  # 并行环境数，大幅提升样本效率
+    "total_timesteps": 2000000,  # 从500k增加到2M，机械臂任务至少需要1M+
+    "n_envs": 15,  # 并行环境数，大幅提升样本效率
     "learning_rate": 3e-4,
     "n_steps": 2048,
     "batch_size": 256,
@@ -31,8 +31,4 @@ ENV_CONFIG = {
 }
 
 # 测试配置
-TEST_CONFIG = {
-    "n_episodes": 100,
-    "max_steps": 300,
-    "render": True,
-}
+TEST_CONFIG = {"n_episodes": 100, "max_steps": 300, "render": True, "n_substeps": 10}

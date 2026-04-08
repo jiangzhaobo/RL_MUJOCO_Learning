@@ -1,4 +1,4 @@
-"""测试脚本（SAC 评估，与 FR3_PPO/test.py 功能一致）"""
+"""TD3 测试脚本（参考 FR3_SAC/test.py）"""
 
 import os
 import sys
@@ -8,18 +8,17 @@ sys.path.append(str(Path(__file__).parent.parent))
 import argparse
 import numpy as np
 import time
-from stable_baselines3 import SAC
+from stable_baselines3 import TD3
 from utils.fr3_env import FR3ReachEnv
 from config import TEST_CONFIG, SAVE_DIR
 import mujoco.viewer
 
 
 def test(args):
-    """测试函数"""
     model_path = (
         args.model_path
         if args.model_path
-        else os.path.join(SAVE_DIR, "fr3_reach_sac_final.zip")
+        else os.path.join(SAVE_DIR, "fr3_reach_td3_final.zip")
     )
 
     if not os.path.exists(model_path):
@@ -27,16 +26,14 @@ def test(args):
         return
 
     print(f"加载模型: {model_path}")
-    model = SAC.load(model_path)
+    model = TD3.load(model_path)
 
-    # 创建环境（带可视化）
     env = FR3ReachEnv(
         render_mode="human",
         max_steps=TEST_CONFIG.get("max_steps", 200),
         n_substeps=TEST_CONFIG.get("n_substeps", 5),
     )
 
-    # 测试统计
     n_episodes = args.n_episodes if args.n_episodes else TEST_CONFIG["n_episodes"]
     success_count = 0
     total_rewards = []
@@ -63,7 +60,6 @@ def test(args):
                 env.render()
                 time.sleep(0.01)
 
-        # 记录统计信息
         final_distance = info["distance"]
         is_success = final_distance < 0.05
 
@@ -80,7 +76,6 @@ def test(args):
             f"Distance={final_distance:.4f}, Success={'true' if is_success else 'false'}"
         )
 
-    # 打印总结
     print("\n" + "=" * 50)
     print("测试总结:")
     print(f"成功率: {100 * success_count / n_episodes:.1f}%")
@@ -92,7 +87,7 @@ def test(args):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="测试FR3到达任务 (SAC)")
+    parser = argparse.ArgumentParser(description="测试FR3到达任务 (TD3)")
     parser.add_argument("--model_path", type=str, default=None, help="模型路径")
     parser.add_argument("--n_episodes", type=int, default=None, help="测试轮数")
     args = parser.parse_args()
