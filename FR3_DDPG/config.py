@@ -10,8 +10,8 @@ SAVE_DIR = os.path.join(BASE_DIR, "saved_models")
 
 # 训练配置（DDPG 为 off-policy actor-critic）
 TRAIN_CONFIG = {
-    "total_timesteps": 1000000,
-    "n_envs": 14,
+    "total_timesteps": 1500000,
+    "n_envs": 16,
     "learning_rate": 1e-3,
     "buffer_size": 500000,
     "batch_size": 256,
@@ -28,4 +28,4 @@ TRAIN_CONFIG = {
 ENV_CONFIG = {"max_steps": 300, "n_substeps": 10}
 
 # 测试配置
-TEST_CONFIG = {"n_episodes": 100, "max_steps": 300, "render": True, "n_substeps": 5}
+TEST_CONFIG = {"n_episodes": 100, "max_steps": 300, "render": True, "n_substeps": 10}

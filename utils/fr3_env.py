@@ -60,7 +60,7 @@ class FR3ReachEnv(gym.Env):
         assert self.target_body_id != -1, "找不到 target body，请检查fr3_reach.xml"
 
         # 成功判定与稳定性相关阈值
-        self.success_threshold = 0.04  # m
+        self.success_threshold = 0.05  # m
         self.success_consecutive = 2  # 连续满足阈值的步数
         self.ee_vel_threshold = 0.01  # m/s，末端速度阈值
 
@@ -154,11 +154,7 @@ class FR3ReachEnv(gym.Env):
         progress = self.prev_distance - distance
         action_penalty = 0.01 * np.linalg.norm(action)
         reward = (
-            -distance
-            + 0.5 * np.exp(-10.0 * distance)
-            + 1.2 * progress
-            - action_penalty
-            - 0.001 * self.current_step
+            -distance + 0.5 * np.exp(-10.0 * distance) + 1.0 * progress - action_penalty
         )
 
         # 稳定性判定：距离与速度都满足时计数，否则清零

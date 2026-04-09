@@ -28,4 +28,4 @@ ENV_CONFIG = {
 }
 
 # 测试配置
-TEST_CONFIG = {"n_episodes": 100, "max_steps": 300, "render": True, "n_substeps": 5}
+TEST_CONFIG = {"n_episodes": 100, "max_steps": 300, "render": True, "n_substeps": 10}
