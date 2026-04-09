@@ -1,4 +1,4 @@
-# FR3 Reach RL (PPO/A2C/SAC)
+# FR3 Reach RL (PPO/A2C/SAC/DDPG/TD3)
 
 这是一个用于 FR3 机械臂到达（reach）任务的强化学习仓库，包含基于 MuJoCo 的环境和若干强化学习算法的实现（PPO、A2C、SAC）。项目用于训练、评估和保存控制策略模型，并提供训练日志与可视化支持。初衷是为了自己去学习强化学习算法以及使用 MuJoCo 进行机器人控制的实践，同时也欢迎其他人参考和使用。
 
@@ -56,6 +56,8 @@ python FR3_PPO/train.py
 # 或
 python FR3_A2C/train.py
 python FR3_SAC/train.py
+python FR3_DDPG/train.py
+python FR3_TD3/train.py
 ```
 
 测试/评估（示例）：
